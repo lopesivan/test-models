@@ -1,5 +1,11 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Wpedantic -std=c++20 -Isrc
+
+CXXFLAGS = \
+	-Wall \
+	-Wextra \
+	-Wpedantic \
+	-std=c++20 \
+	-Isrc
 
 BIN = loja-cpp
 
@@ -12,9 +18,12 @@ LIBSRC = \
 	src/produto.cpp \
 	src/carrinho.cpp
 
-TESTS = \
-	tests/test_produto \
-	tests/test_carrinho
+TEST_BIN = tests/run-tests
+
+TEST_SRC = \
+	tests/main.cpp \
+	tests/test_produto.cpp \
+	tests/test_carrinho.cpp
 
 all:
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(BIN)
@@ -22,25 +31,18 @@ all:
 run: all
 	./$(BIN)
 
-tests/test_produto:
-	$(CXX) $(CXXFLAGS) \
-		tests/test_produto.cpp \
+$(TEST_BIN):
+	$(CXX) \
+		$(CXXFLAGS) \
+		$(TEST_SRC) \
 		$(LIBSRC) \
-		-o $@
+		-o $(TEST_BIN)
 
-tests/test_carrinho:
-	$(CXX) $(CXXFLAGS) \
-		tests/test_carrinho.cpp \
-		$(LIBSRC) \
-		-o $@
-
-test: $(TESTS)
-	./tests/test_produto
-	./tests/test_carrinho
-	@echo "Todos os testes passaram."
+test: $(TEST_BIN)
+	./$(TEST_BIN)
 
 clean:
 	rm -f $(BIN)
-	rm -f $(TESTS)
+	rm -f $(TEST_BIN)
 
 .PHONY: all run test clean
