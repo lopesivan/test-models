@@ -1,1 +1,6 @@
 xenv
+
+12605  make compile
+12606  make run
+12607  make test
+
