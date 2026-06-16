@@ -1,18 +1,24 @@
-MVN = mvn
+GRADLE = gradle
 
 compile:
-	$(MVN) compile
+	$(GRADLE) classes
 
 run:
-	$(MVN) exec:java
+	$(GRADLE) run
 
 test:
-	$(MVN) test
+	$(GRADLE) test
 
-package:
-	$(MVN) package
+jar:
+	$(GRADLE) jar
 
 clean:
-	$(MVN) clean
+	$(GRADLE) clean
 
-.PHONY: compile run test package clean
+deps:
+	$(GRADLE) dependencies
+
+wrapper:
+	$(GRADLE) wrapper
+
+.PHONY: compile run test jar clean deps wrapper
