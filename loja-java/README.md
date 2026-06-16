@@ -98,3 +98,116 @@ o que permite comparar:
 
 entre as seis tecnologias usando exatamente o mesmo modelo de negócio.
 
+
+
+ivan*:  /workspace/test-models/loja-java loja-java-gradle-junit
+$ make test
+gradle test
+Calculating task graph as no cached configuration is available for tasks: test
+
+BUILD SUCCESSFUL in 1s
+3 actionable tasks: 2 executed, 1 up-to-date
+Configuration cache entry stored.
+
+
+
+
+Sim. Com Gradle, essa saída é perfeitamente normal.
+
+O detalhe é que o Gradle, por padrão, **não mostra os testes que passaram**, apenas o resumo final:
+
+```text
+BUILD SUCCESSFUL
+```
+
+e isso significa que o JUnit executou todos os testes sem falhas.
+
+Se quiser confirmar, rode:
+
+```bash
+gradle test --info
+```
+
+ou:
+
+```bash
+gradle test --tests loja.TestLoja
+```
+
+ou ainda:
+
+```bash
+find build/test-results
+```
+
+Você verá algo parecido com:
+
+```text
+build/test-results/test/
+└── TEST-loja.TestLoja.xml
+```
+
+e:
+
+```bash
+cat build/test-results/test/TEST-loja.TestLoja.xml
+```
+
+mostrará:
+
+```xml
+<testsuite
+    tests="2"
+    failures="0"
+    errors="0"
+    skipped="0">
+```
+
+Uma melhoria interessante é adicionar ao `Makefile`:
+
+```makefile
+test:
+	$(GRADLE) test
+
+report:
+	$(GRADLE) test
+	xdg-open build/reports/tests/test/index.html
+```
+
+Então:
+
+```bash
+make report
+```
+
+abre um relatório HTML com:
+
+```text
+✔ produtoDeveConterNomeEPreco()
+✔ carrinhoDeveSomarProdutos()
+```
+
+Você também pode configurar o Gradle para mostrar os testes no terminal adicionando ao `build.gradle.kts`:
+
+```kotlin
+tasks.test {
+    useJUnitPlatform()
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+}
+```
+
+Aí o `make test` passa a mostrar algo como:
+
+```text
+TestLoja > produtoDeveConterNomeEPreco() PASSED
+TestLoja > carrinhoDeveSomarProdutos() PASSED
+
+BUILD SUCCESSFUL
+```
+
+Para projetos didáticos como seus exemplos `loja-*`, eu costumo habilitar esse `testLogging`, porque deixa a saída parecida com `pytest`, `cargo test` e `Catch2`.
+
+
