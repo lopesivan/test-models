@@ -24,6 +24,15 @@ application {
     mainClass.set("loja.Main")
 }
 
+// tasks.test {
+//     useJUnitPlatform()
+// }
+
+
 tasks.test {
     useJUnitPlatform()
+
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
 }
