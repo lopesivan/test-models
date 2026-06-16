@@ -7,6 +7,7 @@ CXXFLAGS = \
 	-std=c++20 \
 	-Isrc
 
+LDLIBS = -lCatch2Main -lCatch2
 BIN = loja-cpp
 
 SRC = \
@@ -21,7 +22,6 @@ LIBSRC = \
 TEST_BIN = tests/run-tests
 
 TEST_SRC = \
-	tests/main.cpp \
 	tests/test_produto.cpp \
 	tests/test_carrinho.cpp
 
@@ -36,7 +36,8 @@ $(TEST_BIN):
 		$(CXXFLAGS) \
 		$(TEST_SRC) \
 		$(LIBSRC) \
-		-o $(TEST_BIN)
+		-o $(TEST_BIN) \
+		$(LDLIBS)
 
 test: $(TEST_BIN)
 	./$(TEST_BIN)
