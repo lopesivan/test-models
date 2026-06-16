@@ -2,20 +2,36 @@ package br.eng.ivanlopes.loja;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/carrinho")
 public class CarrinhoController {
     private final Carrinho carrinho = new Carrinho();
 
+    public record CarrinhoResponse(
+            List<Produto> produtos,
+            int quantidade,
+            double total
+    ) {}
+
+    private CarrinhoResponse response() {
+        return new CarrinhoResponse(
+                carrinho.produtos(),
+                carrinho.quantidade(),
+                carrinho.total()
+        );
+    }
+
     @PostMapping("/produtos")
-    public Carrinho adicionar(@RequestBody Produto produto) {
+    public CarrinhoResponse adicionar(@RequestBody Produto produto) {
         carrinho.adicionar(produto);
-        return carrinho;
+        return response();
     }
 
     @GetMapping
-    public Carrinho listar() {
-        return carrinho;
+    public CarrinhoResponse listar() {
+        return response();
     }
 
     @GetMapping("/total")
