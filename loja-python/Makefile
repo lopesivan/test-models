@@ -1,14 +1,14 @@
 PYTHON = python
+PYTHONPATH = src
 
 test:
 	pytest
 
 run:
-	$(PYTHON) -c 'from loja import Produto, Carrinho; c=Carrinho(); c.adicionar(Produto("Livro",50)); c.adicionar(Produto("Caneta",5)); print(c.quantidade(), c.total())'
+	PYTHONPATH=$(PYTHONPATH) $(PYTHON) -m loja
 
 clean:
 	rm -rf .pytest_cache
-	rm -rf tests/__pycache__
-	rm -rf src/loja/__pycache__
+	find . -name __pycache__ -type d -exec rm -rf {} +
 
 .PHONY: test run clean
