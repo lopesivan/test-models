@@ -1,14 +1,11 @@
+#include <catch2/catch_test_macros.hpp>
+
 #include "produto.hpp"
 
-#include <cassert>
-#include <string>
-
-int main()
+TEST_CASE("Produto possui nome e preco")
 {
     Produto produto("Livro", 50.0);
 
-    assert(produto.nome() == "Livro");
-    assert(produto.preco() == 50.0);
-
-    return 0;
+    REQUIRE(produto.nome() == "Livro");
+    REQUIRE(produto.preco() == 50.0);
 }
