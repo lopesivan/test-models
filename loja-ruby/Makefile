@@ -1,4 +1,3 @@
-cat > Makefile <<'EOF'
 RUBY = ruby
 
 run:
@@ -11,4 +10,3 @@ clean:
 	rm -rf .bundle
 
 .PHONY: run test clean
-EOF
