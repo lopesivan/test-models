@@ -1,0 +1,7 @@
+curl -X POST http://localhost:8080/carrinho/produtos \
+  -H 'Content-Type: application/json' \
+  -d '{"nome":"Livro","preco":50.0}'
+
+curl http://localhost:8080/carrinho
+
+curl http://localhost:8080/carrinho/total
