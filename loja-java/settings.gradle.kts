@@ -1,1 +1,1 @@
-rootProject.name = "loja-java-gradle"
+rootProject.name = "loja-springboot"
