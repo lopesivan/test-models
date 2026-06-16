@@ -1,0 +1,29 @@
+loja-typescript
+├── package.json
+├── src
+│   ├── carrinho.ts
+│   └── produto.ts
+├── tests
+└── tsconfig.json
+loja-java
+├── Makefile
+└── src
+    ├── main
+    │   └── java
+    │       └── loja
+    │           ├── Carrinho.java
+    │           ├── Main.java
+    │           └── Produto.java
+    └── test
+        └── java
+            └── loja
+loja-ruby
+├── lib
+│   └── loja
+│       ├── carrinho.rb
+│       └── produto.rb
+├── main.rb
+└── test
+    └── test_loja.rb
+
+15 directories, 12 files
