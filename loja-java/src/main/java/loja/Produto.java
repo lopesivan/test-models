@@ -9,16 +9,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public String getNome() {
+    public String nome() {
         return nome;
     }
 
-    public double getPreco() {
+    public double preco() {
         return preco;
-    }
-
-    @Override
-    public String toString() {
-        return nome + " - R$ " + String.format("%.2f", preco);
     }
 }
