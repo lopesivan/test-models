@@ -9,13 +9,21 @@ mod tests {
     use super::*;
 
     #[test]
-    fn carrinho_soma_produtos() {
-        let mut c = Carrinho::new();
+    fn produto_deve_ter_nome_e_preco() {
+        let produto = Produto::new("Livro", 50.0);
 
-        c.adicionar(Produto::new("Livro", 50.0));
-        c.adicionar(Produto::new("Caneta", 5.0));
+        assert_eq!(produto.nome, "Livro");
+        assert_eq!(produto.preco, 50.0);
+    }
 
-        assert_eq!(c.quantidade(), 2);
-        assert_eq!(c.total(), 55.0);
+    #[test]
+    fn carrinho_deve_somar_produtos() {
+        let mut carrinho = Carrinho::new();
+
+        carrinho.adicionar(Produto::new("Livro", 50.0));
+        carrinho.adicionar(Produto::new("Caneta", 5.0));
+
+        assert_eq!(carrinho.quantidade(), 2);
+        assert_eq!(carrinho.total(), 55.0);
     }
 }
